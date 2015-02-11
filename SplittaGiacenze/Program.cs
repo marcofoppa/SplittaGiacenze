@@ -16,9 +16,11 @@ namespace SplittaGiacenze
             var contenutoSplittato = new StringBuilder();
             var codiceTargaturaGrossista = string.Empty;
             var codiceAsl = string.Empty;
+            var count = 0;
 
             while ((line = file.ReadLine()) != null)
             {
+                count++;
                 // Se la linea inizia per G, la linea appartiene al file RET, quindi la considero
                 // Altrimenti, se lo StringBuilder contiene qualcosa, lo scarico su un file .RET
                 if (line.StartsWith("G"))
@@ -39,7 +41,9 @@ namespace SplittaGiacenze
                         }
 
                         // Scrivo il file e svuoto lo stringbuilder
-                        var nomefile = string.Format(@"{0}\{1}_{2}_{3}.RET", codiceTargaturaGrossista, codiceAsl, codiceTargaturaGrossista, DateTime.Now.ToString("yyyyddMMHHmmss_fffffff"));
+                        var nomefile = string.Format(@"{0}\{1}_{2}_{3}_{4}.RET", codiceTargaturaGrossista, codiceAsl, codiceTargaturaGrossista, DateTime.Now.ToString("yyyyddMMHHmmss_fffffff"), count);
+
+                        Console.WriteLine(nomefile);
 
                         File.WriteAllText(nomefile, contenutoSplittato.ToString());
 
